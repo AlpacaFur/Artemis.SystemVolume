@@ -1,0 +1,8 @@
+{
+  "Guid": "5ec5c446-d70e-4e27-b9d2-ce9ab4360a8a",
+  "Name": "System Volume",
+  "Description": "Get the current Windows system volume.",
+  "Icon": "VolumeHigh",
+  "Version": "1.0.0.0",
+  "Main": "Artemis.SystemVolume.dll"
+}
