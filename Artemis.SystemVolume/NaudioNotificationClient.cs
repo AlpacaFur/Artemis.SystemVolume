@@ -5,7 +5,11 @@ using System;
 public class NaudioNotificationClient : IMMNotificationClient
 {
     public delegate void DefaultDeviceChangedHandler();
+    public delegate void DeviceStateChangedHandler();
+    public delegate void DevicePropertyChangedHandler();
     public event DefaultDeviceChangedHandler DefaultDeviceChanged;
+    public event DeviceStateChangedHandler DeviceStateChanged;
+    public event DevicePropertyChangedHandler DevicePropertyChanged;
 
     public void OnDefaultDeviceChanged(DataFlow dataFlow, Role deviceRole, string defaultDeviceId)
     {
@@ -25,18 +29,26 @@ public class NaudioNotificationClient : IMMNotificationClient
 
     public void OnDeviceStateChanged(string deviceId, DeviceState newState)
     {
+        if (DeviceStateChanged != null)
+        {
+            DeviceStateChanged();
+        }
     }
 
     public NaudioNotificationClient()
     {
         if (System.Environment.OSVersion.Version.Major < 6)
         {
-            //throw new NotSupportedException("This functionality is only supported on Windows Vista or newer.");
+            throw new NotSupportedException("This functionality is only supported on Windows Vista or newer.");
         }
     }
 
     public void OnPropertyValueChanged(string deviceId, PropertyKey propertyKey)
     {
+        if (DevicePropertyChanged != null)
+        {
+            DevicePropertyChanged();
+        }
     }
 
 }
